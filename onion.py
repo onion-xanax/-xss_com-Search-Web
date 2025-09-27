@@ -5,10 +5,11 @@ import csv
 import re
 import hashlib
 import secrets
+import os
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = secrets.token_hex(32)
+app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(32))
 app.config['PERMANENT_SESSION_LIFETIME'] = 3600000
 
 BASE_CSV = 'base.csv'
@@ -182,5 +183,10 @@ def search_email():
 def check_auth():
     return jsonify({'logged_in': 'user_id' in session})
 
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return app.send_static_file(filename)
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
