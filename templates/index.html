@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Search</title>
+    <link rel="stylesheet" href="/static/onion.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <a href="https://t.me/+pGZVmA0PUqA3YWU9" class="header-text" id="headerLink">🔍 Darlene Search</a>
+
+    {% if not logged_in %}
+    <div class="auth-buttons">
+        <button class="auth-button" id="registerButton">Регистрация</button>
+        <button class="auth-button" id="loginButton">Войти</button>
+    </div>
+    {% else %}
+    <div class="auth-buttons">
+        <span class="user-info">Пользователь: {{ session.username }}</span>
+        <button class="auth-button" id="logoutButton">Выйти</button>
+    </div>
+    {% endif %}
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Введите IP, телефон или email...">
+        <button class="search-button">🔍 Поиск</button>
+    </div>
+
+    <div class="result-container" id="result"></div>
+
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Вход</h2>
+            <input type="text" id="username" placeholder="Логин" class="modal-input" maxlength="50">
+            <input type="password" id="password" placeholder="Пароль" class="modal-input" maxlength="100">
+            <button id="submitAuth" class="modal-button">Отправить</button>
+        </div>
+    </div>
+
+    <script src="/static/onion.js"></script>
+</body>
+</html>
