@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Search</title>
+    <link rel="stylesheet" href="/onion.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <div class="emoji-container emoji-shield">
+                            <div class="shield-body"></div>
+                            <div class="shield-lock"></div>
+                        </div>
+                    </div>
+                    <h3>Доступ к OSINT Search</h3>
+                    <p>Войдите или зарегистрируйтесь</p>
+                    <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6); margin-top: 5px;">
+                        Используйте ваш email адрес
+                    </p>
+                </div>
+
+                <form id="authForm" class="auth-form">
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required
+                               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                               title="Введите корректный email адрес">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Пароль (минимум 6 символов)" required
+                               minlength="6"
+                               title="Пароль должен содержать минимум 6 символов">
+                    </div>
+                    <div class="auth-buttons">
+                        <button type="button" id="loginBtn" class="btn btn-primary">Войти</button>
+                        <button type="button" id="registerBtn" class="btn btn-secondary">Регистрация</button>
+                    </div>
+                </form>
+
+                <div id="authMessage" class="auth-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-interface">
+        <nav class="top-nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <div class="nav-logo">🔍</div>
+                    <span class="nav-title">Open Search</span>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-item">
+                        <div class="emoji-container emoji-developer">
+                            <div class="emoji-screen"></div>
+                            <div class="emoji-keyboard"></div>
+                            <div class="emoji-face">
+                                <div class="emoji-eye left"></div>
+                                <div class="emoji-eye right"></div>
+                                <div class="emoji-mouth"></div>
+                            </div>
+                        </div>
+                        <div class="nav-details">
+                            <div class="nav-label">Creator</div>
+                            <a href="https://t.me/xss_com" class="nav-link">@xss_com</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <div class="emoji-container emoji-megaphone">
+                            <div class="megaphone-body"></div>
+                            <div class="megaphone-handle"></div>
+                            <div class="sound-waves">
+                                <div class="wave"></div>
+                                <div class="wave"></div>
+                                <div class="wave"></div>
+                            </div>
+                        </div>
+                        <div class="nav-details">
+                            <div class="nav-label">Channel</div>
+                            <a href="https://t.me/+pGZVmA0PUqA3YWU9" class="nav-link">Project Darlene</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <div class="emoji-container emoji-user">
+                            <div class="user-head"></div>
+                            <div class="user-body"></div>
+                        </div>
+                        <div class="nav-details">
+                            <div class="nav-label">Пользователь</div>
+                            <div id="userEmail" class="user-email">Гость</div>
+                            <a href="#" id="logoutBtn" class="logout-link">Выйти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="search-container">
+            <div class="squares-grid">
+                <div class="square">
+                    <div class="emoji-container emoji-phone">
+                        <div class="phone-body"></div>
+                        <div class="phone-screen">
+                            <div class="signal-bars">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                        <div class="phone-button"></div>
+                    </div>
+                    <div class="square-title">Search by number</div>
+                    <div class="square-subtitle">79998887777<br>+79998887777</div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter phone number">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-email">
+                        <div class="envelope"></div>
+                        <div class="envelope-flap"></div>
+                        <div class="letter">
+                            <div class="letter-line short"></div>
+                            <div class="letter-line medium"></div>
+                            <div class="letter-line long"></div>
+                        </div>
+                    </div>
+                    <div class="square-title">Search by email</div>
+                    <div class="square-subtitle">exemple@gmail.com<br>exemple@icloud.com</div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter email">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-nickname">
+                        <div class="nickname-head">
+                            <div class="nickname-eye left"></div>
+                            <div class="nickname-eye right"></div>
+                            <div class="nickname-mouth"></div>
+                        </div>
+                        <div class="nickname-tag">@</div>
+                    </div>
+                    <div class="square-title">Search by nickname</div>
+                    <div class="square-subtitle">onion<br>nickname</div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter nickname">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-document">
+                        <div class="document-page"></div>
+                        <div class="document-lines">
+                            <div class="doc-line"></div>
+                            <div class="doc-line"></div>
+                            <div class="doc-line"></div>
+                            <div class="doc-line short"></div>
+                        </div>
+                        <div class="document-number">INN</div>
+                    </div>
+                    <div class="square-title">Search by INN</div>
+                    <div class="square-subtitle"><br>inn582801503237</div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter INN">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-id">
+                        <div class="id-card">
+                            <div class="id-photo"></div>
+                            <div class="id-line"></div>
+                            <div class="id-line short"></div>
+                        </div>
+                        <div class="id-text">ID</div>
+                    </div>
+                    <div class="square-title">Search by SNILS</div>
+                    <div class="square-subtitle"><br>snils00995511773</div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter SNILS">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-building">
+                        <div class="building-base"></div>
+                        <div class="building-window w1"></div>
+                        <div class="building-window w2"></div>
+                        <div class="building-window w3"></div>
+                        <div class="building-window w4"></div>
+                        <div class="building-door"></div>
+                    </div>
+                    <div class="square-title">Search by OGRN</div>
+                    <div class="square-subtitle">1224000000278<br></div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter OGRN">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-vk">
+                        <div class="vk-shape">
+                            <div class="vk-letter">V</div>
+                            <div class="vk-letter">K</div>
+                        </div>
+                        <div class="network-connection"></div>
+                    </div>
+                    <div class="square-title">Search by Vkontakte</div>
+                    <div class="square-subtitle">vkid1<br></div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter VK ID">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="square">
+                    <div class="emoji-container emoji-ok">
+                        <div class="ok-circle">
+                            <div class="ok-hand"></div>
+                            <div class="ok-hand thumb"></div>
+                        </div>
+                        <div class="network-connection"></div>
+                    </div>
+                    <div class="square-title">Search by OK.ru</div>
+                    <div class="square-subtitle">okid1<br></div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter OK ID">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <div class="square">
+                    <div class="emoji-container emoji-facebook">
+                        <div class="fb-shape">
+                            <div class="fb-letter">f</div>
+                        </div>
+                        <div class="network-connection"></div>
+                    </div>
+                    <div class="square-title">Search by Facebook</div>
+                    <div class="square-subtitle">fcid1<br></div>
+                    <div class="search-group">
+                        <input type="text" class="search-input" placeholder="Enter FB ID">
+                        <button class="search-btn">
+                            <div class="emoji-magnifier">
+                                <div class="magnifier-handle"></div>
+                                <div class="magnifier-glass"></div>
+                            </div>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/onion.js"></script>
+</body>
+</html>
